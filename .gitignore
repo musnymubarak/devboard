@@ -1,0 +1,24 @@
+# PDF guide
+*.pdf
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+
+# Node
+node_modules/
+.env
+.env.local
+dist/
+build/
+*.log
+
+# OS
+.DS_Store
+
+# Tools
+velero-*.tar.gz
+kubeseal-*.tar.gz
