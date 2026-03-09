@@ -18,10 +18,6 @@ variable "project" {
   description = "Project name"
 }
 
-variable "region" {
-  type = string
-}
-
 variable "account_id" {
   type = string
 }

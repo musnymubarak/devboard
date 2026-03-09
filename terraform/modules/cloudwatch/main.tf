@@ -36,7 +36,7 @@ resource "aws_cloudwatch_metric_alarm" "alb_latency" {
   metric_name         = "TargetResponseTime"
   namespace           = "AWS/ApplicationELB"
   period              = 60
-  statistic           = "p95"
+  extended_statistic  = "p95"
   threshold           = 1
   alarm_description   = "ALB p95 response time exceeds 1 second"
   alarm_actions       = [aws_sns_topic.alerts.arn]

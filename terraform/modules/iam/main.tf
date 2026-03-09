@@ -36,8 +36,10 @@ resource "aws_iam_instance_profile" "ec2_node" {
 # ── OIDC Provider for IRSA ─────────────────────────────────────────────────
 # This allows K8s ServiceAccounts to assume IAM roles
 
-data "aws_iam_openid_connect_provider" "github" {
-  url = "https://token.actions.githubusercontent.com"
+resource "aws_iam_openid_connect_provider" "github" {
+  url             = "https://token.actions.githubusercontent.com"
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
 }
 
 # ── GitHub Actions OIDC Role ───────────────────────────────────────────────
