@@ -35,6 +35,8 @@ resource "aws_s3_bucket_public_access_block" "attachments" {
 
 resource "aws_s3_bucket_lifecycle_configuration" "attachments" {
   bucket = aws_s3_bucket.attachments.id
+
+  # Expire deleted files
   rule {
     id     = "expire-deleted-files"
     status = "Enabled"
@@ -45,6 +47,16 @@ resource "aws_s3_bucket_lifecycle_configuration" "attachments" {
       days = 30
     }
   }
+
+  # Abort incomplete multipart uploads after 7 days
+  rule {
+    id     = "abort-incomplete-multipart"
+    status = "Enabled"
+    filter {}  # applies to entire bucket
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+  }
 }
 
 # S3 bucket for Velero backups
@@ -52,6 +64,10 @@ resource "aws_s3_bucket" "velero" {
   bucket = "${var.project}-velero-${var.account_id}"
 
   tags = { Name = "${var.project}-velero-${var.environment}" }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_versioning" "velero" {
@@ -76,4 +92,18 @@ resource "aws_s3_bucket_public_access_block" "velero" {
   ignore_public_acls      = true
   block_public_policy     = true
   restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "velero" {
+  bucket = aws_s3_bucket.velero.id
+
+  # Abort incomplete multipart uploads after 7 days
+  rule {
+    id     = "abort-incomplete-multipart"
+    status = "Enabled"
+    filter {}  # applies to entire bucket
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+  }
 }

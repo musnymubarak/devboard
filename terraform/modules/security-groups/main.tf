@@ -25,6 +25,7 @@ resource "aws_security_group" "alb" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
   }
 
   tags = { Name = "${var.project}-alb-sg-${var.environment}" }
@@ -57,6 +58,7 @@ resource "aws_security_group" "k8s_nodes" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
   }
 
   tags = { Name = "${var.project}-k8s-nodes-sg-${var.environment}" }
@@ -81,6 +83,7 @@ resource "aws_security_group" "rds" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
   }
 
   tags = { Name = "${var.project}-rds-sg-${var.environment}" }

@@ -28,6 +28,13 @@ resource "aws_instance" "control_plane" {
   vpc_security_group_ids = [var.k8s_nodes_sg_id]
   key_name               = aws_key_pair.devboard.key_name
   iam_instance_profile   = var.iam_instance_profile_name
+  monitoring             = true
+
+  metadata_options {               
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+  }
 
   root_block_device {
     volume_size = 20
@@ -44,6 +51,12 @@ resource "aws_launch_template" "worker" {
   image_id      = data.aws_ami.ubuntu.id
   instance_type = "t3.small"
   key_name      = aws_key_pair.devboard.key_name
+
+  metadata_options {               
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+  }
 
   iam_instance_profile {
     name = var.iam_instance_profile_name

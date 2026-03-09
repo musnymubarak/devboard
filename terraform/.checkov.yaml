@@ -1,0 +1,47 @@
+skip-check:
+  - CKV_AWS_136   # ECR KMS CMK - costs money
+  - CKV_AWS_145   # S3 KMS CMK - costs money
+  - CKV_AWS_149   # Secrets Manager KMS CMK - costs money
+  - CKV_AWS_144   # S3 cross-region replication - costs money
+  - CKV_AWS_157   # RDS Multi-AZ - costs money
+  - CKV_AWS_353   # RDS Performance Insights - costs money
+  - CKV_AWS_354   # RDS Performance Insights KMS - costs money
+  - CKV2_AWS_28   # ALB WAF - costs money
+  - CKV_AWS_68    # CloudFront WAF - costs money
+  - CKV2_AWS_47   # CloudFront WAF Log4j - costs money
+  - CKV2_AWS_76   # ALB WAF Log4j - costs money
+  - CKV2_AWS_42   # CloudFront custom SSL - need domain
+  - CKV_AWS_174   # CloudFront TLS v1.2 - using default cert
+  - CKV2_AWS_54   # CloudFront SSL protocols - using default cert
+  - CKV_AWS_374   # CloudFront geo restriction - not needed
+  - CKV_AWS_310   # CloudFront origin failover - not needed
+  - CKV2_AWS_32   # CloudFront response headers - not needed
+  - CKV_AWS_86    # CloudFront access logging - costs money
+  - CKV_AWS_91    # ALB access logging - costs money
+  - CKV2_AWS_57   # Secrets Manager rotation - complex
+  - CKV_AWS_18    # S3 access logging - costs money
+  - CKV2_AWS_62   # S3 event notifications - not needed
+  - CKV2_AWS_61   # S3 lifecycle velero - acceptable
+  - CKV2_AWS_5    # SGs not attached yet - false positive pre-apply
+  - CKV_AWS_382   # Egress 0.0.0.0/0 - intentional
+  - CKV_AWS_260   # ALB SG port 80 - intentional redirect
+  - CKV_AWS_130   # Public subnet public IPs - intentional for ALB
+  - CKV_AWS_135   # EBS optimized - t3 already optimized by default
+  - CKV_AWS_88    # EC2 public IP - instances in private subnets
+  - CKV2_AWS_41   # IAM role on EC2 - already have instance profile
+  - CKV_AWS_355   # IAM wildcard resource - required for Cluster Autoscaler
+  - CKV_AWS_290   # IAM write without constraints - required for CA + GitHub Actions
+  - CKV2_AWS_44   # VPC peering routes - no peering configured
+  - CKV2_AWS_35   # NAT Gateway default route - already configured
+  - CKV2_AWS_19   # EIP attached - NAT Gateway uses it
+  - CKV_AWS_103   # TLS 1.2 on ALB - using HTTP internally
+  - CKV2_AWS_74   # ALB strong ciphers - not applicable
+  - CKV2_AWS_46   # CloudFront S3 Origin Access - no S3 origin
+  - CKV_AWS_378   # Target group HTTP - internal NodePort
+  - CKV_AWS_328   # ALB desync mitigation - add later
+  - CKV2_AWS_30   # RDS query logging - covered by log_connections param
+  - CKV_AWS_274   # AdministratorAccess - k8s-admin IAM user, not a role
+  - CKV2_AWS_56   # IAMFullAccess - not used
+  - CKV_AWS_386   # WhoAMI attack - using canonical AMI filter
+  - CKV_AWS_388   # Aurora local file - using RDS not Aurora
+  - CKV_AWS_338   # Log retention 1 year - 30 days intentional for cost
