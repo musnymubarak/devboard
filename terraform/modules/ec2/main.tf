@@ -23,7 +23,7 @@ data "aws_ami" "ubuntu" {
 # Control Plane Node — t3.medium (needs more CPU for etcd + API server)
 resource "aws_instance" "control_plane" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t3.medium"
+  instance_type          = "t3.micro"
   subnet_id              = var.private_subnet_1_id
   vpc_security_group_ids = [var.k8s_nodes_sg_id]
   key_name               = aws_key_pair.devboard.key_name
