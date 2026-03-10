@@ -86,12 +86,10 @@ resource "aws_cloudwatch_metric_alarm" "rds_storage" {
 resource "aws_cloudwatch_log_group" "app" {
   name              = "/devboard/${var.environment}/app"
   retention_in_days = 30
-  kms_key_id        = "arn:aws:kms:${var.region}:${var.account_id}:alias/aws/logs"
 }
 
 # Log Group for K8s system logs
 resource "aws_cloudwatch_log_group" "k8s" {
   name              = "/devboard/${var.environment}/k8s"
   retention_in_days = 14
-  kms_key_id        = "arn:aws:kms:${var.region}:${var.account_id}:alias/aws/logs"
 }

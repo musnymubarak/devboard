@@ -45,3 +45,4 @@ skip-check:
   - CKV_AWS_386   # WhoAMI attack - using canonical AMI filter
   - CKV_AWS_388   # Aurora local file - using RDS not Aurora
   - CKV_AWS_338   # Log retention 1 year - 30 days intentional for cost
+  - CKV_AWS_158   # CloudWatch log group KMS - costs money

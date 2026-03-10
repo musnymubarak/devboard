@@ -17,6 +17,21 @@ resource "aws_subnet" "public" {
   tags = { Name = "${var.project}-public-${var.environment}" }
 }
 
+# Public Subnet 2 — us-east-1b (required for ALB)
+resource "aws_subnet" "public_2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "${var.region}b"
+  map_public_ip_on_launch = true
+
+  tags = { Name = "${var.project}-public-2-${var.environment}" }
+}
+
+resource "aws_route_table_association" "public_2" {
+  subnet_id      = aws_subnet.public_2.id
+  route_table_id = aws_route_table.public.id
+}
+
 # Private Subnet 1 — us-east-1a (control plane + worker 1)
 resource "aws_subnet" "private_1" {
   vpc_id            = aws_vpc.main.id
@@ -213,7 +228,6 @@ resource "aws_iam_role_policy" "flow_logs" {
 resource "aws_cloudwatch_log_group" "flow_logs" {
   name              = "/devboard/${var.environment}/vpc-flow-logs"
   retention_in_days = 14
-  kms_key_id        = "arn:aws:kms:${var.region}:${var.account_id}:alias/aws/logs"
 }
 
 resource "aws_flow_log" "main" {

@@ -25,3 +25,7 @@ output "nat_gateway_id" {
 output "nat_eip_allocation_id" {
   value = aws_eip.nat.id
 }
+
+output "public_subnet_2_id" {
+  value = aws_subnet.public_2.id
+}

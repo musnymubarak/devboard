@@ -7,7 +7,6 @@ module "vpc" {
   region      = var.region
   environment = var.environment
   project     = var.project
-  account_id  = data.aws_caller_identity.current.account_id
 }
 
 # ── Security Groups ────────────────────────────────────────────────────────
@@ -87,6 +86,7 @@ module "alb" {
   environment      = var.environment
   vpc_id           = module.vpc.vpc_id
   public_subnet_id = module.vpc.public_subnet_id
+  public_subnet_2_id = module.vpc.public_subnet_2_id
   alb_sg_id        = module.security_groups.alb_sg_id
 }
 
@@ -106,6 +106,4 @@ module "cloudwatch" {
   alert_email    = var.alert_email
   alb_arn_suffix = module.alb.alb_arn_suffix
   db_instance_id = module.rds.db_instance_id
-  region         = var.region
-  account_id     = data.aws_caller_identity.current.account_id
 }
