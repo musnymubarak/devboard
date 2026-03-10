@@ -45,3 +45,9 @@ resource "aws_lb_listener" "http" {
     }
   }
 }
+
+# Wire ASG to Target Group so new workers auto-register
+resource "aws_autoscaling_attachment" "workers" {
+  autoscaling_group_name = var.worker_asg_name
+  lb_target_group_arn    = aws_lb_target_group.main.arn
+}

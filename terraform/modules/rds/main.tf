@@ -16,6 +16,12 @@ resource "aws_db_parameter_group" "main" {
     value = "1"
   }
 
+  parameter {
+    name         = "rds.force_ssl"
+    value        = "1"
+    apply_method = "immediate"
+  }
+
   tags = { Name = "${var.project}-db-params-${var.environment}" }
 }
 
@@ -50,6 +56,7 @@ resource "aws_db_instance" "main" {
   allocated_storage = 20
   storage_type      = "gp3"
   storage_encrypted = true
+  ca_cert_identifier = "rds-ca-rsa2048-g1"
 
   copy_tags_to_snapshot      = true
   auto_minor_version_upgrade = true

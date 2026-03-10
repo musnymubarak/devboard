@@ -91,6 +91,8 @@ resource "aws_autoscaling_group" "workers" {
   max_size            = 4
   desired_capacity    = 2
   vpc_zone_identifier = [var.private_subnet_1_id]
+  health_check_type         = "ELB"
+  health_check_grace_period = 300
 
   launch_template {
     id      = aws_launch_template.worker.id

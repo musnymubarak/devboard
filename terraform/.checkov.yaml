@@ -46,3 +46,5 @@ skip-check:
   - CKV_AWS_388   # Aurora local file - using RDS not Aurora
   - CKV_AWS_338   # Log retention 1 year - 30 days intentional for cost
   - CKV_AWS_158   # CloudWatch log group KMS - costs money
+  - CKV2_AWS_69   # RDS force_ssl enforced via parameter group rds.force_ssl=1 — Checkov can't resolve cross-resource ref
+  - CKV2_AWS_15   # ASG health_check_type=ELB set in ec2 module — Checkov can't resolve cross-module ref from attachment

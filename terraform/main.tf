@@ -88,6 +88,7 @@ module "alb" {
   public_subnet_id = module.vpc.public_subnet_id
   public_subnet_2_id = module.vpc.public_subnet_2_id
   alb_sg_id        = module.security_groups.alb_sg_id
+  worker_asg_name  = module.ec2.worker_asg_name
 }
 
 # ── CloudFront ─────────────────────────────────────────────────────────────

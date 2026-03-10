@@ -21,3 +21,7 @@ variable "alb_sg_id" {
 variable "public_subnet_2_id" {
   type = string
 }
+
+variable "worker_asg_name" {
+  type = string
+}
