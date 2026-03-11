@@ -250,3 +250,15 @@ resource "aws_iam_role_policy" "task_service" {
     }]
   })
 }
+resource "aws_iam_role_policy" "ec2_ssm_parameters" {
+  name = "${var.project}-ec2-ssm-parameters-${var.environment}"
+  role = aws_iam_role.ec2_node_role.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["ssm:GetParameter", "ssm:GetParameters"]
+      Resource = "arn:aws:ssm:us-east-1:322725461163:parameter/devboard/*"
+    }]
+  })
+}
